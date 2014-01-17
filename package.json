@@ -1,0 +1,11 @@
+{
+  "name": "triviacombat",
+  "preferGlobal": true,
+  "version": "0.1.0",
+  "author": "NRyan Webber",
+  "description": "Learning web sockets; head to head trivia battle",
+  "dependencies" : {
+    "express"   :  "3.4.7",
+    "socket.io" : "0.9.15"
+  }
+}

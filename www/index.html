@@ -1,0 +1,15 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost:8001');
+
+
+  socket.on('connectStatus', function (data) {
+    console.log(data);
+  });
+
+  socket.on('gameStarted', function (data) {
+    console.log(data);
+  });
+
+
+</script>
