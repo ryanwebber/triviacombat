@@ -1,5 +1,8 @@
 // @author Ryan Webber
 
+
+var active=null;
+
 /**
  * Takes data provided by the user to be converte into json data
  */
@@ -36,7 +39,7 @@ var HomeView = Backbone.View.extend({
             $('#page').html(Handlebars.compile(incomingTemplate)).trigger('create'); 
         });
 
-        socket = io.connect('http://localhost:8001');
+        active = game();
 
         return this;
     }
