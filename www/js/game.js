@@ -10,17 +10,20 @@ var game = function(handler) {
 	var init = function(){
 		socket.on('welcome', function (data) {
     		if(data.success){
-    			console.log("Connection successful");
+    			console.log("1. Welcome received");
     		}else{
+    			console.log("Connection failed");
     			callbacks.error("Could not connect to server");
     		}
   		});
 	};
 
 	var start = function(user){
+
 		socket.emit('joinGame',user.name);
 
 		socket.on('connectStatus', function(data){
+			console.log("2. Initializing game");
 			if(data.success){
 				if(data.waiting){
 					callbacks.inLine();
@@ -31,19 +34,28 @@ var game = function(handler) {
 		});
 
 		socket.on('gameStarted',function(data){
+			console.log("3. Game started");
 			callbacks.gameStarted(data);
 
+			socket.on('waitingForOther', function(data){
+				console.log("3.5. Waiting for other");
+				callbacks.waitingForOther();
+			});
+
 			socket.on('newQuestion', function(data){
+				console.log("4. New question");
 				canAnswer=true;
 				callbacks.newQuestion(data);
 				count++;
 			});
 
 			socket.on('questionResult', function(data){
+				console.log("5. Question result");
 				callbacks.questionResult(data);
 			});
 
 			socket.on('gameOver', function(data){
+				console.log("6. Game over");
 				state=2;
 				callbacks.gameOver(data);
 				socket.disconnect();
@@ -58,7 +70,7 @@ var game = function(handler) {
 	init();
 
 	return {
-		connect: function(data){
+		connect: function(user){
 			if(state==0) {
 				start(user);
 			}
@@ -66,7 +78,8 @@ var game = function(handler) {
 			return count;
 		}, readyUp: function(){
 			if(state==1){
-				socket.emit('readyUp',true);
+				socket.emit('playerReady',true);
+				console.log("Readying");
 			}
 		}, answerQuestion: function(answer){
 			if(state==1&&canAnswer){

@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Bootstrap 101 Template</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>DEMO</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 		<!-- CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 
 		<!-- JS -->
 		<script src="js/jquery-1.10.2.min.js"></script>
+		<script src="js/underscore-min.js"></script>
 		<script src="js/backbone-min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/handlebars-v1.3.0.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="js/game.js"></script>
 		<script src="js/views.js"></script>
 		<script src="js/routes.js"></script>
-		<script src="js/game.js"></script>
 
   	</head>
   	<body>
@@ -25,6 +26,11 @@
   		<script>
 
   			var home = new HomeView();
+  			var line = new InLineView();
+  			var start = new StartView();
+  			var question = new QuestionView();
+  			var result = new ResultView();
+  			var finish = new FinishView();
   			Backbone.history.start();
 
   		</script>
@@ -32,24 +38,3 @@
 
   	</body>
 </html>
-
-
-
-
-
-
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io.connect('http://localhost:8001');
-
-
-  socket.on('connectStatus', function (data) {
-    console.log(data);
-  });
-
-  socket.on('gameStarted', function (data) {
-    console.log(data);
-  });
-
-
-</script>

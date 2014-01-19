@@ -35,6 +35,11 @@ var waiter = null;
 
 io.sockets.on('connection', function (socket) {
 
+	socket.on('disconnect', function(){
+		console.log('disconnect');
+		if(waiter!=null && waiter.socket==socket) socket=null;
+	});
+
 	socket.on('joinGame', function(data){
 		var player = {
 			socket: socket,
@@ -51,13 +56,13 @@ io.sockets.on('connection', function (socket) {
 			var player2 = waiter;
 			waiter = null;
 
-			socket.emit('connectStatus', {
+			player.socket.emit('connectStatus', {
 				waiting: false,
 				success: true,
 				opponent: player2.name
 			});
 
-			socket2.emit('connectStatus', {
+			player2.socket.emit('connectStatus', {
 				waiting: false,
 				success: true,
 				opponent: player.name
@@ -68,7 +73,7 @@ io.sockets.on('connection', function (socket) {
 		}
 	});
 
-	socket.emmit('welcome', {
+	socket.emit('welcome', {
 		success: true,
 		message: 'Send username to join'
 	})
