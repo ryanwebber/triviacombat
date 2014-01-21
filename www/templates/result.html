@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title" id="question">
+			{{#correct}}Correct!{{/correct}}
+			{{^correct}}Incorrect.{{/correct}}
+		</h3>
+		<p class="time pull-right"></p>
+	</div>
+	<div class="panel-body">
+		Points: {{points}}
+		<br/>
+		Total: {{total}}
+	</div>
+	<div class="panel-footer">
+		<button type="button" id="resultready">Ready Up</button>
+	</div>
+</div>

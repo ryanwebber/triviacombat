@@ -1,12 +1,16 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Ready Up</h3>
+		<h3 class="panel-title" id="question">
+			{{result}}
+		</h3>
 		<p class="time pull-right"></p>
 	</div>
 	<div class="panel-body">
-		<span>You have been matched with an opponent! Please ready up</span>
+		Me: {{points}}
+		<br/>
+		Opponent: {{points2}}
 	</div>
 	<div class="panel-footer">
-		<button type="button" id="startready">Ready</button>
+		<button type="button" id="finish">Finish</button>
 	</div>
 </div>

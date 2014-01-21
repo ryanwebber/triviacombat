@@ -6,7 +6,8 @@ var Router = Backbone.Router.extend({
         'gameStarted': 'gameStarted',
         'nextQuestion': 'question',
         'questionResult': 'questionResult',
-        'gameOver': "over"
+        'gameOver': "over",
+        'waiting':'waiting'
 
 	}
 });
@@ -36,4 +37,8 @@ app_router.on('route:questionResult', function() {
 
 app_router.on('route:over', function() {
     finish.render();
+});
+
+app_router.on('route:waiting', function() {
+    waiting.render();
 });

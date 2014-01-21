@@ -39,7 +39,8 @@ var controller = {
 	},waitingForOther: function(){
 
 		// waiting for other player
-		
+		app_router.navigate('#waiting', {trigger: true});
+
 	},gameStarted: function(){
 		// notifying the game is started
 
@@ -52,12 +53,14 @@ var controller = {
 
 	}, questionResult: function(questionResult){
 		// show the question result page
-
-		console.log(questionResult);
+		result.currentResult=questionResult;
+		app_router.navigate('#questionResult', {trigger: true});
 
 	}, gameOver: function(result){
 		// show game over page, destroy object
 		active = null;
+	}, timeTrigger: function(time){
+		$(".time").html(time);
 	}
 };
 
@@ -132,29 +135,39 @@ var QuestionView = Backbone.View.extend({
     },
     answerQuestion: function(event){
     	event.preventDefault();
-    	var answer= $("#answer").attr('checked')=='checked';
-    	console.log(answer);
+    	var answer= $("#answer").is(':checked');
+    	active.answerQuestion(answer);
     },
     currentQuestion: ""
+});
+
+var WaitingView = Backbone.View.extend({
+    render: function (question) {
+        $.get('templates/waiting2.html', function (incomingTemplate) {
+            $('#page').html(Handlebars.compile(incomingTemplate)).trigger('create'); 
+        });
+
+        return this;
+    },
 });
 
 var ResultView = Backbone.View.extend({
 	el: "#page",
     events: {
-        "click #readyup": "readyUp",
+        "click #resultready": "readyUp",
     },
     render: function (question) {
-        $.get('templates/question.html', function (incomingTemplate) {
-            $('#page').html(Handlebars.compile(incomingTemplate)({
-            	stuffhere: ""
-            })).trigger('create'); 
+    	var res = this.currentResult;
+        $.get('templates/result.html', function (incomingTemplate) {
+            $('#page').html(Handlebars.compile(incomingTemplate)(res)).trigger('create'); 
         });
 
         return this;
     },
     readyUp: function(event){
     	active.readyUp();
-    }
+    }, 
+    currentResult: {}
 });
 
 var FinishView = Backbone.View.extend({

@@ -54,6 +54,10 @@ var game = function(handler) {
 				callbacks.questionResult(data);
 			});
 
+			socket.on('gameTimer', function(data){
+				callbacks.timeTrigger(data.time);
+			});
+
 			socket.on('gameOver', function(data){
 				console.log("6. Game over");
 				state=2;
@@ -79,7 +83,6 @@ var game = function(handler) {
 		}, readyUp: function(){
 			if(state==1){
 				socket.emit('playerReady',true);
-				console.log("Readying");
 			}
 		}, answerQuestion: function(answer){
 			if(state==1&&canAnswer){
