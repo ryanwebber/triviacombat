@@ -1,7 +1,8 @@
 // set routing variables
 var Router = Backbone.Router.extend({
 	routes: {
-        '': 'home',
+        '': 'login',
+        'home' : 'home',
         'inLine': 'line',
         'gameStarted': 'gameStarted',
         'nextQuestion': 'question',
@@ -41,4 +42,8 @@ app_router.on('route:over', function() {
 
 app_router.on('route:waiting', function() {
     waiting.render();
+});
+
+app_router.on('route:login', function() {
+    login.render();
 });

@@ -91,6 +91,79 @@ var HomeView = Backbone.View.extend({
     }
 });
 
+var LoginView = Backbone.View.extend({
+    active: 0,
+    el: "#page",
+    events: {
+        "click #signIn": "showSignin",
+        "click #forget": "showForget",
+        "click #register": "showRegister",
+    },
+    render: function () {
+        $.get('templates/login.html', function (incomingTemplate) {
+            $('#page').html(Handlebars.compile(incomingTemplate)).trigger('create'); 
+        });
+        return this;
+    }, hideAll: function(callback){
+        switch(this.active){
+            case 0:
+                $('#arrow').removeClass('col-xs-offset-1');
+                $('#login_access').attr('class','animated fadeOut');
+                $("#login_access").one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', function(){
+                    $("#login_access").hide();
+                    callback();
+                });
+                break;
+            case 1:
+                $('#arrow').removeClass('col-xs-offset-5');
+                $('#forget_access').attr('class','animated fadeOut');
+                $("#forget_access").one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', function(){
+                    $("#forget_access").hide();
+                    callback();
+                });
+                break;
+            case 2:
+                $('#arrow').removeClass('col-xs-offset-9');
+                $('#register_access').attr('class','animated fadeOut');
+                $("#register_access").one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', function(){
+                    $("#register_access").hide();
+                    callback();
+                });
+                break;
+        }
+    }, showSignin: function(){
+        if(this.active==0) return;
+        else{
+            $('#arrow').addClass('col-xs-offset-1');
+            this.hideAll(function(){
+                $("#login_access").show();
+                $('#login_access').attr('class','animated fadeIn');
+            });
+        }
+        this.active=0;
+    }, showForget: function(){
+        if(this.active==1) return;
+        else{
+            $('#arrow').addClass('col-xs-offset-5');
+            this.hideAll(function(){
+                $("#forget_access").show();
+                $('#forget_access').attr('class','animated fadeIn');
+            });
+        }
+        this.active=1;
+    }, showRegister: function(){
+        if(this.active==2) return;
+        else{
+            $('#arrow').addClass('col-xs-offset-9');
+            this.hideAll(function(){
+                $("#register_access").show();
+                $('#register_access').attr('class','animated fadeIn');
+            });
+        }
+        this.active=2;
+    }
+});
+
 
 var InLineView = Backbone.View.extend({
     render: function () {
