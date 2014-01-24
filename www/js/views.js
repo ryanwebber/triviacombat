@@ -107,7 +107,6 @@ var LoginView = Backbone.View.extend({
     }, hideAll: function(callback){
         switch(this.active){
             case 0:
-                $('#arrow').removeClass('col-xs-offset-1');
                 $('#login_access').attr('class','animated fadeOut');
                 $("#login_access").one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', function(){
                     $("#login_access").hide();
@@ -115,7 +114,7 @@ var LoginView = Backbone.View.extend({
                 });
                 break;
             case 1:
-                $('#arrow').removeClass('col-xs-offset-5');
+                $('#arrow').removeClass('col-xs-offset-4');
                 $('#forget_access').attr('class','animated fadeOut');
                 $("#forget_access").one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', function(){
                     $("#forget_access").hide();
@@ -123,7 +122,7 @@ var LoginView = Backbone.View.extend({
                 });
                 break;
             case 2:
-                $('#arrow').removeClass('col-xs-offset-9');
+                $('#arrow').removeClass('col-xs-offset-8');
                 $('#register_access').attr('class','animated fadeOut');
                 $("#register_access").one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', function(){
                     $("#register_access").hide();
@@ -134,7 +133,6 @@ var LoginView = Backbone.View.extend({
     }, showSignin: function(){
         if(this.active==0) return;
         else{
-            $('#arrow').addClass('col-xs-offset-1');
             this.hideAll(function(){
                 $("#login_access").show();
                 $('#login_access').attr('class','animated fadeIn');
@@ -144,7 +142,7 @@ var LoginView = Backbone.View.extend({
     }, showForget: function(){
         if(this.active==1) return;
         else{
-            $('#arrow').addClass('col-xs-offset-5');
+            $('#arrow').addClass('col-xs-offset-4');
             this.hideAll(function(){
                 $("#forget_access").show();
                 $('#forget_access').attr('class','animated fadeIn');
@@ -154,7 +152,7 @@ var LoginView = Backbone.View.extend({
     }, showRegister: function(){
         if(this.active==2) return;
         else{
-            $('#arrow').addClass('col-xs-offset-9');
+            $('#arrow').addClass('col-xs-offset-8');
             this.hideAll(function(){
                 $("#register_access").show();
                 $('#register_access').attr('class','animated fadeIn');

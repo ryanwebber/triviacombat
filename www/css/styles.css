@@ -13,6 +13,16 @@ a:hover{
 	text-decoration: none;
 }
 
+#page{
+	margin-left: auto;
+  	margin-right: auto;
+  	width: 100%;
+  	height: 100%;
+  	max-width: 600px;
+  	margin-left: auto;
+  	margin-right: auto;
+}
+
 .vContainer{
 	display: table;
 	height: 100%;
@@ -24,6 +34,8 @@ a:hover{
 	height: 50%;
 	width:95%;
 	vertical-align: middle;
+	text-align: center;
+	align: center;
 }
 
 .login{
@@ -68,6 +80,8 @@ a:hover{
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 	border-top: 10px solid #423142;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .bare{
