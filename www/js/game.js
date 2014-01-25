@@ -1,7 +1,7 @@
 // our game controller
 
 var game = function(handler) {
-	var socket = io.connect('http://localhost:8001');
+	var socket = io.connect('http://localhost:8002');
 	var callbacks = handler; // data handlers
 	var state=0;
 	var count = 0;

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<!-- CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+	<!-- JS -->
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+	<div class="row tilerow text-center">
+		<div class="col-xs-6 col-sm-4 col-md-2 tile a" id="logintoggle">
+			Login
+		</div>
+		<div class="col-xs-6 col-sm-4 col-md-2 tile b" id="registertoggle">
+			Register a new user
+		</div>
+		<div class="col-xs-6 col-sm-4 col-md-2 tile c" id="test">
+			Test server
+		</div>
+		<div class="col-xs-6 col-sm-4 col-md-2 tile a" id="logout">
+			Logout
+		</div>
+		<div class="col-xs-6 col-sm-4 col-md-2 tile b" id="status">
+			Status
+		</div>
+	</div>
+
+	<div class="modal fade" id="login">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Login</h4>
+				</div>
+				<div class="modal-body">
+					<form id="loginform" action="#" method="post">
+						<div class="form-group">
+							<label for="username">Username</label>
+							<input type="text" class="form-control" name="username" id="username" placeholder="Username">
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button form="loginform" type="button" id="loginsubmit" class="btn btn-danger">Login</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<div class="modal fade" id="register">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Register</h4>
+				</div>
+				<div class="modal-body">
+					<form id="registerform" action="/register" method="post">
+						<div class="form-group">
+							<label for="username">Username</label>
+							<input type="text" class="form-control" name="username" id="username" placeholder="Username">
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" name="password" placeholder="Password">
+						</div>
+						<div class="form-group">
+							<label for="password2">Confirm Password</label>
+							<input type="password" class="form-control" name="password2" placeholder="Password">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button form="registerform" type="submit" class="btn btn-danger">Register</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+
+	<script>
+
+	var socket = io.connect('http://localhost:8002');
+
+	$("#logintoggle").on('click', function(event){
+		$('#login').modal('show');
+	});
+
+	$("#loginsubmit").on('click',function(event){
+		$.post('/login',{
+			username: 'ryan',
+			password: 'qwe',
+		},function(data){
+			console.log(data);
+		});
+	});
+
+	$("#registertoggle").on('click', function(event){
+		$('#register').modal('show');
+	});
+
+	$("#test").on('click', function(event){
+		socket.emit('test', true);
+	});
+
+	$("#logout").on('click', function(event){
+		$.get('/logout',function(data){
+			console.log(data);
+		});
+	});
+
+	$("#status").on('click', function(event){
+		$.get('/session',function(data){
+			console.log(data);
+		});
+	});
+
+	socket.on('welcome',function(data){
+		console.log(data);
+	});
+
+	socket.on('test',function(data){
+		console.log(data);
+	});
+
+	</script>
+</body>
+</html>
+
+
+
+
+

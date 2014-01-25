@@ -4,8 +4,15 @@
   "version": "0.1.0",
   "author": "NRyan Webber",
   "description": "Learning web sockets; head to head trivia battle",
-  "dependencies" : {
-    "express"   :  "3.4.7",
-    "socket.io" : "0.9.15"
+  "dependencies": {
+    "express": "3.4.7",
+    "mongoose": ">= 0.1.0",
+    "socket.io": "0.9.15",
+    "passport": ">= 0.1.18",
+    "passport-local": ">= 0.1",
+    "passport-local-mongoose": "*",
+    "passport.socketio": "~2.2.1",
+    "connect-mongo": "~0.4.0",
+    "express-config": "0.0.1"
   }
 }
