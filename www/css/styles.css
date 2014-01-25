@@ -1,0 +1,102 @@
+html, body, #page{
+	height: 100%;
+	margin: 0;
+	background: #292931;
+	color: f8f8f8;
+}
+
+a{
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
+#page{
+	margin-left: auto;
+  	margin-right: auto;
+  	width: 100%;
+  	height: 100%;
+  	max-width: 600px;
+  	margin-left: auto;
+  	margin-right: auto;
+}
+
+.vContainer{
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+
+.vContent{
+	display: table-cell;
+	height: 50%;
+	width:95%;
+	vertical-align: middle;
+	text-align: center;
+	align: center;
+}
+
+.login{
+	margin: 0px;
+	padding-right: 15px;
+	padding-left: 15px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background: #423142;
+}
+
+.loginOps{
+	margin:0px;
+	padding-top: 5px;
+}
+
+.center{
+	text-align: center;
+}
+
+.accent{
+	color: #625864;
+}
+
+.accent:hover{
+	color: #625864;
+}
+
+.med{
+	font-size: 1.25em;
+}
+
+.button{
+	background-image: url(/assets/button.png);
+	background-size: cover;
+	background-position: auto, auto;
+}
+
+.arrow-down {
+	width: 0; 
+	height: 0; 
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid #423142;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.bare{
+	margin: 0;
+	padding: 0;
+}
+
+.hide{
+	display: none;
+}
+
+.progress{
+	background-color: #f3f3f3;
+	margin: 0px;
+	padding: 0px;
+	width:100%;
+	height:2px;
+}
