@@ -62,7 +62,13 @@ var game = function(handler) {
 				console.log("6. Game over");
 				state=2;
 				callbacks.gameOver(data);
-				socket.disconnect();
+				socket.removeAllListeners('gameOver');
+				socket.removeAllListeners('gameTimer');
+				socket.removeAllListeners('newQuestion');
+				socket.removeAllListeners('questionResult');
+				socket.removeAllListeners('waitingForOther');
+				socket.removeAllListeners('gameStarted');
+				socket.removeAllListeners('connectStatus');
 			});
 
 		});

@@ -26,11 +26,16 @@ io.set('authorization', passportSocketIo.authorize({
   	store: sessionStore,
   	passport: passport,
   	success: function(data, accept){
-  		console.log("connection from: "+data);
+  		console.log("connection from: "+data.user.username);
+  		//readyUser(data);
   		accept(null,true);
   	},
   	fail: function(data,message,error,accept){
-  		console.log("Rejected connection");
+  		console.log("Rejected connection: "+message);
+  		data.emit({
+  			success: false,
+  			message: "Unauthorized Access"
+  		});
   		accept(null,false);
   	}  
 }));
@@ -90,8 +95,6 @@ io.sockets.on('connection', function (socket) {
 		console.log('disconnect');
 		if(waiter!=null && waiter.socket==socket) socket=null;
 	});
-
-	readyUser(socket);
 
 });
 
