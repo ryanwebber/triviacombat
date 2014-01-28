@@ -1,7 +1,7 @@
 // our game controller
 
 var game = function(handler) {
-	var socket = io.connect('http://localhost:8001');
+	var socket = io.connect('http://localhost:8002');
 	var callbacks = handler; // data handlers
 	var state=0;
 	var count = 0;
@@ -62,7 +62,13 @@ var game = function(handler) {
 				console.log("6. Game over");
 				state=2;
 				callbacks.gameOver(data);
-				socket.disconnect();
+				socket.removeAllListeners('gameOver');
+				socket.removeAllListeners('gameTimer');
+				socket.removeAllListeners('newQuestion');
+				socket.removeAllListeners('questionResult');
+				socket.removeAllListeners('waitingForOther');
+				socket.removeAllListeners('gameStarted');
+				socket.removeAllListeners('connectStatus');
 			});
 
 		});

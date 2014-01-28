@@ -1,6 +1,6 @@
 // @author Ryan Webber
 
-
+var currentuser = null;
 var active=null;
 
 /**
@@ -98,6 +98,7 @@ var LoginView = Backbone.View.extend({
         "click #signIn": "showSignin",
         "click #forget": "showForget",
         "click #register": "showRegister",
+        "submit #login_form": "loginVerify"
     },
     render: function () {
         $.get('templates/login.html', function (incomingTemplate) {
@@ -159,7 +160,42 @@ var LoginView = Backbone.View.extend({
             });
         }
         this.active=2;
-    }
+    }, loginVerify: function (ev) {
+        ev.preventDefault();
+        var userDetails = $(ev.currentTarget).serializeObject();
+        var user = new LogInUser();
+
+        //$('#loadingModal').modal('show');
+
+        /********** Attempt to login the user **********/
+        user.save(userDetails, {
+            success: function (user) {
+                console.log("user in");
+                var userObject = user.attributes;
+                //Successfully logged in
+                if (userObject !== undefined){
+                    /* Set users data */
+                    currentuser = userObject;
+
+                    // do stuff
+                    app_router.navigate('#/home', { trigger: true });
+
+                }
+            },
+            error: function () {
+                
+                //Wobble/shake form to indicate failed login
+                $('#login_form').addClass('animated shake');
+                $('#login_form').one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', function(){
+                         //clear password box
+                        $('#inputPassword').val('');
+                        $('#login_form').removeClass('animated shake');
+                });
+
+               
+            }
+        });
+    }, 
 });
 
 

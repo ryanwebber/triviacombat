@@ -19,8 +19,7 @@ a:hover{
   	width: 100%;
   	height: 100%;
   	max-width: 600px;
-  	margin-left: auto;
-  	margin-right: auto;
+  	padding: 0;
 }
 
 .vContainer{
@@ -32,10 +31,18 @@ a:hover{
 .vContent{
 	display: table-cell;
 	height: 50%;
-	width:95%;
+	width:90%;
 	vertical-align: middle;
 	text-align: center;
 	align: center;
+}
+
+.vContent2{
+	display: table-cell;
+	height: 50%;
+	width:90%;
+	vertical-align: middle;
+	text-align: center;
 }
 
 .login{
@@ -62,6 +69,10 @@ a:hover{
 
 .accent:hover{
 	color: #625864;
+}
+
+div.accent{
+	background-color: #625864;
 }
 
 .med{
@@ -100,3 +111,77 @@ a:hover{
 	width:100%;
 	height:2px;
 }
+
+.img-centered{
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.darkPage{
+	background-color: #292931;
+	margin: 0;
+	padding: inherit;
+	width: 100%;
+	height: 100%;
+}
+
+.lightPage{
+	background-color: #f3f3f3;
+	margin: 0;
+	padding: inherit;
+	width: 100%;
+	height: 100%;
+}
+
+div.home{
+	height: 40%;	
+	width: 75%;
+}
+
+div.tile{
+	height: 40%;
+	color: #f3f3f3;
+}
+
+div.tile:hover{
+	background-color: #625864;
+}
+
+div.tile:active{
+	background-color: inherit;
+}
+
+.full{
+	height: 100%;
+}
+
+.padless{
+	padding: 0;
+}
+
+.profileLarge{
+	margin-left: auto;
+	margin-right:auto;
+	height: 4em;
+	width: 4em;
+	border: 2px solid #f3f3f3;
+	border-radius: 100000px;
+	background-image: url(/assets/profile.jpg);
+	background-position: center center;
+	background-size: cover;
+}
+
+.seperate{
+	border-top: 1px solid #625864;
+	
+	padding: 0;
+}
+
+
+
+
+
+
+
+
+

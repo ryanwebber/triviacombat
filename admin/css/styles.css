@@ -1,0 +1,31 @@
+body, html{
+	background-color: #162514;
+	height: 100%;
+}
+
+.tilerow{
+	height: 20%;
+}
+
+.tile{
+	height: 100%;
+}
+
+.tile:hover{
+	opacity: 0.6;
+}
+
+.a{
+	background: #75be42;
+	color: white;
+}
+
+.b{
+	background: #c9da53;
+	color: #333;
+}
+
+.c{
+	background: #688c38;
+	color: white;
+}
