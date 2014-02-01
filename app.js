@@ -14,44 +14,15 @@
  var mongoose = require('mongoose');
  var game = require('./lib/game.js');
  var user = require('./models/user.js');
- var passportSocketIo = require("passport.socketio");
- var mongoStore = require('connect-mongo')(express);
- var sessionStore = new mongoStore({
-    db: 'triviadb'
- });
-
-io.set('authorization', passportSocketIo.authorize({
-	cookieParser: express.cookieParser,
-  	secret: '9f9348c39cj4938cj334c',    
-  	store: sessionStore,
-  	passport: passport,
-  	success: function(data, accept){
-  		console.log("connection from: "+data.user.username);
-  		//readyUser(data);
-  		accept(null,true);
-  	},
-  	fail: function(data,message,error,accept){
-  		console.log("Rejected connection: "+message);
-  		data.emit({
-  			success: false,
-  			message: "Unauthorized Access"
-  		});
-  		accept(null,false);
-  	}  
-}));
 
 app.configure(function(){
-    app.set('port', process.env.PORT || 8002); // set port
+    app.set('port', process.env.PORT || 8000); // set port
     app.set('env', 'developement');
 	app.use(express.favicon());
 	app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser('nd923898f19f478g87f43'));
-    app.use(express.session({
-    	secret: '9f9348c39cj4938cj334c',
-    	store: sessionStore
-    }));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(app.router);
@@ -88,13 +59,21 @@ passport.deserializeUser(function(userid, done) {
 io.sockets.on('connection', function (socket) {
 
 	socket.emit('welcome', {
-		message: "Please log in"
+		message: "Please log in",
+		success: true
 	});
 
 	socket.on('disconnect', function(){
 		console.log('disconnect');
 		if(waiter!=null && waiter.socket==socket) socket=null;
 	});
+
+	socket.on('quit', function(){
+		console.log('disconnect');
+		if(waiter!=null && waiter.socket==socket) socket=null;
+	});
+
+	readyUser(socket);
 
 });
 
@@ -217,20 +196,16 @@ var readyUser = function(socket){
 
 	socket.on('joinGame', function(data){
 
-		if(!socket.handshake.user.logged_in) return;
-
-		var user = socket.handshake.user;
-
 		console.log("Starting game");
 
 		var player = {
 			socket: socket,
 			user: {
-				username: username,
-				profile: user.profile,
-				level: user.level,
-				score: user.score,
-				_id: user._id
+				username: "test",
+				profile: "",
+				level: 3,
+				score: 5,
+				_id: null
 			}
 		};
 

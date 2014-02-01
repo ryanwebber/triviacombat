@@ -2,6 +2,7 @@
 
 var currentuser = null;
 var active=null;
+var socket = null;
 
 /**
  * Takes data provided by the user to be converte into json data
@@ -30,10 +31,10 @@ $.fn.serializeObject = function() {
 var controller = {
 	error: function(err){
 		// show error page
+        console.log(err);
 		// display error
 	}, inLine: function(){
 		// show in line page
-
 		app_router.navigate('#inLine', {trigger: true});
 
 	},waitingForOther: function(){
@@ -44,7 +45,7 @@ var controller = {
 	},gameStarted: function(){
 		// notifying the game is started
 
-		app_router.navigate('#gameStarted', {trigger: true});
+		app_router.navigate('#readyUp', {trigger: true});
 
 	}, newQuestion: function(ques){
 		// show the question page
@@ -60,7 +61,7 @@ var controller = {
 		// show game over page, destroy object
 		active = null;
 	}, timeTrigger: function(time){
-		$(".time").html(time);
+		$("#timer").val(time).trigger('change');
 	}
 };
 
@@ -72,22 +73,20 @@ var controller = {
 var HomeView = Backbone.View.extend({
 	el: "#page",
     events: {
-        "submit #nameform": "startGame",
+        "click #startgame": "startGame",
     },
     render: function () {
         $.get('templates/home.html', function (incomingTemplate) {
             $('#page').html(Handlebars.compile(incomingTemplate)).trigger('create'); 
+            $('#homePage').addClass('animated bounceInUp');
         });
-
-        active = game(controller);
 
         return this;
     },
     startGame: function(event){
     	event.preventDefault();
-    	active.connect({
-    		name: $("#name").val()
-    	});
+    	active = game(socket, controller);
+        active.connect();
     }
 });
 
@@ -177,8 +176,12 @@ var LoginView = Backbone.View.extend({
                     /* Set users data */
                     currentuser = userObject;
 
-                    // do stuff
-                    app_router.navigate('#/home', { trigger: true });
+                    $('#loginPage').addClass('animated bounceOutDown');
+                    $('#loginPage').one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', function(){
+                        socket = io.connect();
+                        app_router.navigate('#/home', { trigger: true });
+                    });
+                    
 
                 }
             },
@@ -191,8 +194,6 @@ var LoginView = Backbone.View.extend({
                         $('#inputPassword').val('');
                         $('#login_form').removeClass('animated shake');
                 });
-
-               
             }
         });
     }, 
@@ -200,21 +201,28 @@ var LoginView = Backbone.View.extend({
 
 
 var InLineView = Backbone.View.extend({
+    el: "#page",
+    events: {
+        "click #back": "back"
+    },
     render: function () {
         $.get('templates/waiting.html', function (incomingTemplate) {
             $('#page').html(Handlebars.compile(incomingTemplate)).trigger('create'); 
         });
         return this;
+    }, back: function(){
+        active.quit();
+        app_router.navigate("#/home", {trigger: true});
     }
 });
 
-var StartView = Backbone.View.extend({
+var ReadyView = Backbone.View.extend({
 	el: "#page",
     events: {
-        "click #startready": "readyUp",
+        "click #ready": "readyUp",
     },
     render: function () {
-        $.get('templates/started.html', function (incomingTemplate) {
+        $.get('templates/ready.html', function (incomingTemplate) {
             $('#page').html(Handlebars.compile(incomingTemplate)).trigger('create'); 
         });
 

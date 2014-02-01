@@ -1,26 +1,20 @@
 // our game controller
 
-var game = function(handler) {
-	var socket = io.connect('http://localhost:8002');
+var game = function(sk, handler) {
+	if(sk==null) handler.error("No Socket");
+	var socket = sk;
 	var callbacks = handler; // data handlers
 	var state=0;
 	var count = 0;
 	var canAnswer = false;
 
 	var init = function(){
-		socket.on('welcome', function (data) {
-    		if(data.success){
-    			console.log("1. Welcome received");
-    		}else{
-    			console.log("Connection failed");
-    			callbacks.error("Could not connect to server");
-    		}
-  		});
+    	console.log("1. Joining Game");
 	};
 
-	var start = function(user){
+	var start = function(){
 
-		socket.emit('joinGame',user.name);
+		socket.emit('joinGame',{});
 
 		socket.on('connectStatus', function(data){
 			console.log("2. Initializing game");
@@ -80,9 +74,9 @@ var game = function(handler) {
 	init();
 
 	return {
-		connect: function(user){
+		connect: function(){
 			if(state==0) {
-				start(user);
+				start();
 			}
 		}, getCurrentQuestion: function(){
 			return count;
@@ -95,6 +89,16 @@ var game = function(handler) {
 				canAnswer=false;
 				socket.emit('answerQuestion', answer);
 			}
+		}, quit: function(){
+			state=2;
+			socket.removeAllListeners('gameOver');
+			socket.removeAllListeners('gameTimer');
+			socket.removeAllListeners('newQuestion');
+			socket.removeAllListeners('questionResult');
+			socket.removeAllListeners('waitingForOther');
+			socket.removeAllListeners('gameStarted');
+			socket.removeAllListeners('connectStatus');
+			socket.emit("quit");
 		}
 	};
 

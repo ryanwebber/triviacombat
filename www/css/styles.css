@@ -133,6 +133,26 @@ div.accent{
 	height: 100%;
 }
 
+.light{
+	color: #f3f3f3;
+}
+
+.dark{
+	color: #292931;
+}
+
+.accent{
+	color: #625864;
+}
+
+.accent:hover{
+	color: #625864;
+}
+
+div.accent{
+	background-color: #625864;
+}
+
 div.home{
 	height: 40%;	
 	width: 75%;
